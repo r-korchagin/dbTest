@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .container-fluid
+    .row
+        h1= title
+    .row
+      each val in dlist
+        .col-sm
+          .row
+            button( type="button" class="btn btn-primary" onClick=val.btn1click)=val.name1
+          .row
+            button( type="button" class="btn btn-primary" onClick=val.btn2click)=val.name2
+          .row
+            .alert.alert-info
+              h4= val.descr
+              p(id=val.descrid)
+      else
+        .col-sm
+          .alert.alert-warning
+            h2="No DB for test"
+            p="Remove rem from DB configuration file /config/configDB.js"
+block internalscripts
+  script(src='/javascripts/clienttest.js')
