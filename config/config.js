@@ -11,7 +11,7 @@
     },
 
     test:{
-       intCount: 10000
+       intCount: 100000
     }
  };
 

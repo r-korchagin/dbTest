@@ -19,9 +19,9 @@ var cassandraQuery = `INSERT INTO tbl (
   attributes
   ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-var startCon = new Date();
-var client = new cassandra.Client(cassandraConnection[0].connection);
-var stopCon = new Date();
+
+var client;
+
 
 var intTest = function (callbackTest) {
 
@@ -32,6 +32,9 @@ var intTest = function (callbackTest) {
   if (cassandraConnection.length === 0) return callbackTest("No connection data"); 
 
   // var client = new cassandra.Client({ contactPoints: ['localhost']});
+  var startCon = new Date();
+  client = new cassandra.Client(cassandraConnection[0].connection);
+  var stopCon = new Date();  
 
   var startGen = new Date();
   var insertDataArr = [];

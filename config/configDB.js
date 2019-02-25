@@ -5,8 +5,9 @@
  var db = [
      {
         name: 'MongoDB',
-        connection: 'mongodb://localhost:27017/animals',
+        connection: 'mongodb://localhost:27017/local',
      },
+     /*
      {
         name: 'Cassandra',
         connection: { contactPoints: ['localhost']},
@@ -31,10 +32,12 @@
         name: 'Neo4j',
         connection: '',
      },
+     */
      {
         name: 'PostgreSQL',
         connection: 'postgres://username:password@host:port/database',
      },
+     /*
      {
         name: 'Redis',
         connection: '',
@@ -49,6 +52,7 @@
             host: 'localhost:9200'
           },
      },
+     */
  ];
 
  module.exports = db;
