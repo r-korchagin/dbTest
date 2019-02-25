@@ -10,7 +10,6 @@ var cassandraQuery = `INSERT INTO tbl (
   deviceid,
   servertime,
   devicetime,
-  fixtime,
   valid,
   latitude,
   longitude,
@@ -18,8 +17,11 @@ var cassandraQuery = `INSERT INTO tbl (
   speed,
   course,
   attributes
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
+var startCon = new Date();
+var client = new cassandra.Client(cassandraConnection[0].connection);
+var stopCon = new Date();
 
 var intTest = function (callbackTest) {
 
@@ -30,7 +32,6 @@ var intTest = function (callbackTest) {
   if (cassandraConnection.length === 0) return callbackTest("No connection data"); 
 
   // var client = new cassandra.Client({ contactPoints: ['localhost']});
-  var client = new cassandra.Client(cassandraConnection[0].connection);
 
   var startGen = new Date();
   var insertDataArr = [];
@@ -40,23 +41,45 @@ var intTest = function (callbackTest) {
     testData.servertime = new Date();
     insertDataArr.push(testData);
   }
+  var queryparams = [];
+  for (let index = 0; index < config.test.intCount; index++) {
+    queryparams.push(
+      [
+        insertDataArr[index].id,
+        insertDataArr[index].protocol,
+        insertDataArr[index].deviceid,
+        insertDataArr[index].servertime,
+        insertDataArr[index].devicetime,
+        insertDataArr[index].validid,
+        insertDataArr[index].latitude,
+        insertDataArr[index].longtitude,
+        insertDataArr[index].altitude,
+        insertDataArr[index].speed,
+        insertDataArr[index].course,
+        insertDataArr[index].speed,
+        insertDataArr[index].atributes,
+      ]
+    );
+  }
+  
+  /* Stop time data generation */
   var stopGen = new Date();
 
   var startLoad = new Date();
-  async.mapLimit(urls, 5, async function(url) {
-    const response = await fetch(url)
-    return response.body
-    }, (err, results) => {
-        if (err) throw err
-        // results is now an array of the response bodies
-        console.log(results)
-        stopLoad = new Date();
-    });
-
-  client.execute('select key from system.local', function(err, result) {
+  async.mapLimit(queryparams, 5, client.execute('select key from system.local', function(err, result) {
     if (err) throw err;
     console.log(result.rows[0]);
-  });
+  }), (err, results) => {
+        if (err) throw err;
+        // results is now an array of the response bodies
+        console.log(results);
+        stopLoad = new Date();
+        callbackTest(null,{
+          testType:'Internal Cassandra',
+          genTime: stopGen-startGen, 
+          conTime: stopCon-startCon, 
+          loadTime: stopLoad-startLoad});
+    });
 };
 
 module.exports.intTest = intTest;

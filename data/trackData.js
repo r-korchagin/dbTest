@@ -27,6 +27,6 @@
          'distance':0.0,
          'totalDistance':0.0
      }
- }
+ };
 
  module.exports = src;
