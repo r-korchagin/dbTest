@@ -2,6 +2,12 @@ console.log('******** TEST DB *********');
 
 function fetchTest(dbName) {
     fetchData('/dbinttest', dbName);
+    $("body").css("cursor", "progress");
+}
+
+function fetchSelectTest(dbName) {
+  fetchData('/dbinttest/select', dbName);
+  $("body").css("cursor", "progress");
 }
 
 function fetchTestFromClient(dbName) {
@@ -29,12 +35,16 @@ function fetchData(uri,dbName) {
            * {testType:'internal' ,genTime: 1000, conTime: 100, loadTime: 20000}
            *  */
           $('#' + dbName + 'descr').text(
-              'TEST TYPE: ' + json.testType + '  ' +
-              'Data generation: ' + json.genTime + ' ms ' + 
-              'DB Connection: ' + json.conTime + ' ms ' +
-              'Put Data: ' + json.loadTime + ' ms '
+              'TEST TYPE: ' + json.testType + '  ;' +
+              'Data generation: ' + json.genTime + ' ms ;' + 
+              'DB Connection: ' + json.conTime + ' ms ;' +
+              'DB Data: ' + json.loadTime + ' ms '
               );
           console.log(json);
+          $("body").css("cursor", "default");
          })
-      .catch(function(error) { console.log(error); });    
+      .catch(function(error) { 
+        console.log(error);
+        $("body").css("cursor", "default");
+       });    
 }
