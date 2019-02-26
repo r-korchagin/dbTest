@@ -32,10 +32,12 @@
         name: 'Neo4j',
         connection: '',
      },
+     */
      {
         name: 'PostgreSQL',
-        connection: 'postgres://username:password@host:port/database',
+        connection: 'postgres://testadm:123@localhost:5432/testDB',
      },
+     /*
      {
         name: 'Redis',
         connection: '',
