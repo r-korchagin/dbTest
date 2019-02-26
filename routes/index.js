@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../config/configDB');
+var config = require('../config/config');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -18,7 +19,9 @@ router.get('/', function(req, res, next) {
 
   res.render('index', { 
     title: 'DB Test Data Loading',
-    dlist: dbList
+    dlist: dbList,
+    insertCount: `Test to insert ${config.test.intCount} rows`,
+    selectCount: `Test to select ${config.test.selectCount} rows`
    });
 
 });

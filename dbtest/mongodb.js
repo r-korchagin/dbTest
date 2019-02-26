@@ -115,9 +115,9 @@ var intTestSelect = function (callbackTest) {
     async.mapLimit(queryDataArr, 5, 
         (query,callback) => {
             // console.log(query);
-            collection.find(query)
+            collection.find(query).limit(5)
             .toArray(function(err, docs) {
-                console.log( `Find documents count: ${docs.length}` );
+                // console.log( `Find documents count: ${docs.length}` );
                 callback();
               });
         }, 

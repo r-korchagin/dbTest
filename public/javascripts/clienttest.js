@@ -34,11 +34,11 @@ function fetchData(uri,dbName) {
            * process JSON
            * {testType:'internal' ,genTime: 1000, conTime: 100, loadTime: 20000}
            *  */
-          $('#' + dbName + 'descr').text(
-              'TEST TYPE: ' + json.testType + '  ;' +
+          $('#' + dbName + 'descr').append(
+              '<p>TEST TYPE: ' + json.testType + '  ;' +
               'Data generation: ' + json.genTime + ' ms ;' + 
               'DB Connection: ' + json.conTime + ' ms ;' +
-              'DB Data: ' + json.loadTime + ' ms '
+              'DB Data: ' + json.loadTime + ' ms </p>'
               );
           console.log(json);
           $("body").css("cursor", "default");

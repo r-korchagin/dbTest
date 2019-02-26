@@ -11,8 +11,8 @@
     },
 
     test:{
-       intCount: 1000,
-       selectCount: 1000,
+       intCount: 100000,
+       selectCount: 100000,
        startDateRange: new Date(2012, 0, 1),
        endDateRange: new Date()
     }
