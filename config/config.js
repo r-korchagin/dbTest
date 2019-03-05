@@ -12,9 +12,11 @@
 
     test:{
        intCount: 100000,
-       selectCount: 100000,
+       selectCount: 100,
        startDateRange: new Date(2012, 0, 1),
-       endDateRange: new Date()
+       endDateRange: new Date(),
+       selectLimit : 5,
+       poolSize : 5
     }
  };
 

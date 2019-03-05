@@ -48,7 +48,7 @@ var intTest = function (callbackTest) {
     collection.drop();
     
    var startLoad = new Date();
-    async.mapLimit(insertDataArr, 5, 
+    async.mapLimit(insertDataArr, config.test.poolSize, 
         (dbData,callback) => {
             var dat = dbData;
             dat._id = new ObjectID();
@@ -112,10 +112,10 @@ var intTestSelect = function (callbackTest) {
    const collection = myDB.collection('documents');
     
    var startLoad = new Date();
-    async.mapLimit(queryDataArr, 5, 
+    async.mapLimit(queryDataArr, config.test.poolSize, 
         (query,callback) => {
             // console.log(query);
-            collection.find(query).limit(5)
+            collection.find(query).limit(config.test.selectLimit)
             .toArray(function(err, docs) {
                 // console.log( `Find documents count: ${docs.length}` );
                 callback();
@@ -136,5 +136,4 @@ var intTestSelect = function (callbackTest) {
     });
 };
 
-module.exports.intTestSelect = intTestSelect;
-module.exports.intTest = intTest;
+module.exports =  { intTestSelect, intTest };
