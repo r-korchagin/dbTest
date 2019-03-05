@@ -155,7 +155,7 @@ var intTestSelect = function (callbackTest) {
       async.mapLimit(queryDataArr, config.test.poolSize, 
           (dbData,callback) => {
               var dat = dbData;
-              sco.any(selectSQL, dat)
+              sco.none(selectSQL, dat)
               .then(result => {
                   callback();
                })
